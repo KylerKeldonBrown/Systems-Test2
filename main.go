@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"net"
+	"strings"
+	"time"
 )
 
 func main() {
@@ -13,7 +15,7 @@ func main() {
 	}
 	defer listener.Close()
 
-	fmt.Println("Echo server listening on port 4000")
+	fmt.Println("Server listening on port 4000")
 
 	for {
 		conn, err := listener.Accept()
@@ -35,7 +37,16 @@ func handleConnection(conn net.Conn) {
 
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
-		message := scanner.Text()
-		conn.Write([]byte(message + "\n"))
+		input := strings.TrimSpace(scanner.Text())
+
+		switch input {
+		case "/time":
+			conn.Write([]byte(time.Now().Format(time.RFC1123) + "\n"))
+		case "/quit":
+			conn.Write([]byte("Goodbye!\n"))
+			return
+		default:
+			conn.Write([]byte(input + "\n"))
+		}
 	}
 }

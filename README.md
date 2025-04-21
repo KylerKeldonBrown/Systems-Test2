@@ -63,9 +63,11 @@ Supports commands:
 
 /help
 
-HW#2 Video Link
-https://youtu.be/zaUo_s6V-Lsk
-
 /quit or bye
 
 Logs server-wide events to the console
+
+
+HW#2 Video Link
+https://youtu.be/zaUo_s6V-Lsk
+
